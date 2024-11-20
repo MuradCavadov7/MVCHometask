@@ -1,0 +1,38 @@
+﻿﻿@using TOdos.Models
+@model List<Todo>
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Index</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="containers">
+	<a class="btn btn-primary my-2" href="/Todo/Create">Create</a>
+	<ul class="list-group">
+		@foreach (var item in Model)
+		{
+			<li class="list-group-item">
+				@item.Title - @item.Deadline?.ToString("dd-MMMM-yyyy -HH:mm:ss")
+				<a class="btn btn-secondary mx-1" href="/Todo/Look/@item.Id">Bax</a>
+				<a class="btn btn-success mx-1" href="/Todo/Update/@item.Id">Redaktə et</a>
+					<a class="btn btn-danger mx-1" href="/Todo/Delete/@item.Id" onclick="return confirm('Silməyə əminsiniz')">Sil</a>
+				<a class="btn btn-info mx-1" href="/Todo/FinishTask/@item.Id">Task bitir</a>
+					@if (DateTime.Now > item.Deadline)
+					{
+						<p>Yerinə yetirilmədi</p>
+						
+					}
+					else if (item.IsDone==true)
+					{
+						<p>Bitib</p>
+					}					
+			</li>
+		}
+	</ul>
+</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
